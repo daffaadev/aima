@@ -9,6 +9,15 @@
     "reply": []
   },
   {
+    "name": "ngcfc",
+    "message": "bx",
+    "avatar": "",
+    "time": "2025-10-17T11:59:20.395Z",
+    "like": 1,
+    "pin": false,
+    "reply": []
+  },
+  {
     "name": "Kaizi DGQwerty",
     "message": "Hai Adekku",
     "avatar": "https://raw.githubusercontent.com/daffaadev/aima/main/image/1760593863049-Kaizi_DGQwerty.jpg",
@@ -23,15 +32,6 @@
     "avatar": "https://raw.githubusercontent.com/daffaadev/aima/main/image/1760572352520-Sza.jpg",
     "time": "2025-10-15T23:52:37.161Z",
     "like": 1,
-    "pin": false,
-    "reply": []
-  },
-  {
-    "name": "ngcfc",
-    "message": "bx",
-    "avatar": "",
-    "time": "2025-10-17T11:59:20.395Z",
-    "like": 0,
     "pin": false,
     "reply": []
   }
