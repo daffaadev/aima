@@ -1,4 +1,4 @@
- <!doctype html>
+<!doctype html>
 <html lang="id">
 <head>
 <meta charset="utf-8" />
@@ -20,16 +20,22 @@
   }
   *{box-sizing:border-box}
   html{scroll-behavior:smooth}
-  body{
-    margin:0;
-    font-family:'Poppins',system-ui,-apple-system,'Segoe UI',Roboto,Arial;
-    color:#efe7ff;
-    min-height:100vh;
-    overflow-x:hidden;
-    -webkit-font-smoothing:antialiased;
-    -moz-osx-font-smoothing:grayscale;
-    background: #0b0010;
-  }
+  body {
+  margin: 0;
+  font-family: 'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, Arial;
+  color: #efe7ff;
+  min-height: 100vh;
+  overflow-x: hidden;
+  background: #0b0010;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: padding-right 0.8s ease; /* animasi halus */
+  padding-right: 0; /* awalnya 0 */
+}
+
+body.loaded {
+  padding-right: 280px;
+}
   .animated-bg{
     position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;
     background: linear-gradient(120deg,#1a0020 0%, #2b002b 25%, #3a002f 50%, #ff0077 75%, #ff89c9 100%);
@@ -120,7 +126,14 @@ html {
   .about{margin-top:28px;padding:28px;border-radius:18px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.02)}
   .about-grid{display:grid;grid-template-columns:1fr;gap:18px;align-items:center}
   @media(min-width:900px){.about-grid{grid-template-columns:340px 1fr}}
-  .avatar{width:320px;height:320px;border-radius:18px;overflow:hidden;border:6px solid rgba(255,255,255,0.04);box-shadow:0 18px 80px rgba(0,0,0,0.6)}
+.avatar {
+  width: 320px;
+  height: 320px;
+  border-radius: 18px;
+  overflow: visible;
+  border: none;
+  box-shadow: none;
+}
   .avatar img{width:100%;height:100%;object-fit:cover;display:block}
   .about h3{font-size:38px;margin:6px 0;background:linear-gradient(90deg,var(--pink-2),var(--pink-1));-webkit-background-clip:text;background-clip:text;color:transparent}
   .about p{color:rgba(239,231,255,0.88);line-height:1.8}
@@ -279,45 +292,524 @@ a:hover {
   background: rgba(255, 79, 195, 0.1);
   transform: scale(1.03);
 }
-footer {
+ul {
+  display: flex;
+  list-style: none;
+  gap: 30px;
+  transform: rotateX(45deg) rotateZ(-30deg) translateY(20px) translateX(-45px);
+  transform-style: preserve-3d;
+  justify-content: center;
+  margin-top: 70px;
+  margin-bottom: 60px;
+}
+
+ul li {
+  position: relative;
+  width: 95px; /* sedikit diperbesar biar tidak terlalu padat */
+  height: 95px;
+  background: #181818;
   display: flex;
   justify-content: center;
-  margin: 60px 0 30px 0;
-}
-
-footer p {
-  display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 10px 22px;
-  border-radius: 14px;
-  background: linear-gradient(135deg, rgba(120, 0, 150, 0.4), rgba(255, 0, 130, 0.3));
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  color: rgba(255, 255, 255, 0.9);
-  font-size: 15px;
-  backdrop-filter: blur(8px);
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
-  text-align: center;
-}
-footer strong {
-  color: #ff4fc3;
-  font-weight: 700;
-}
-footer i {
-  color: var(--pink-1);
-  position: relative;
-  top: 1px;
-}
-footer .dev-link {
-  color: #ff4fc3;
-  text-decoration: none;
-  font-weight: 700;
-  transition: color 0.3s ease;
+  border-radius: 20px;
+  transition: all 0.4s ease;
+  transform-style: preserve-3d;
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.7);
+  cursor: pointer;
+  overflow: visible;
 }
 
-footer .dev-link:hover {
-  color: #ff6fd3;
-  text-decoration: underline;
+    /* 🔥 Garis sisi berputar (4 sisi pink) – tetap seperti sebelumnya */
+    ul li::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 20px;
+      background: linear-gradient(90deg, #ff4fc3, transparent 50%) top,
+                  linear-gradient(90deg, transparent 50%, #ff4fc3) bottom,
+                  linear-gradient(0deg, #ff4fc3, transparent 50%) left,
+                  linear-gradient(0deg, transparent 50%, #ff4fc3) right;
+      background-size: 300% 3px, 300% 3px, 3px 300%, 3px 300%;
+      background-repeat: no-repeat;
+      animation: spinBorder 4s linear infinite;
+      opacity: 0.8;
+      transition: opacity 0.3s ease;
+    }
+
+    @keyframes spinBorder {
+      0% {
+        background-position: left top, right bottom, left bottom, right top;
+      }
+      100% {
+        background-position: right top, left bottom, right bottom, left top;
+      }
+    }
+
+    ul li::after {
+      content: "";
+      position: absolute;
+      inset: 2px;
+      background: #181818;
+      border-radius: 18px;
+      z-index: 1;
+      transition: all 0.3s ease;
+    }
+
+    ul li.active::before {
+      opacity: 0;
+    }
+
+    ul li.active::after {
+      background: transparent;
+    }
+
+    ul li a {
+      font-size: 35px;
+      color: #777;
+      position: relative;
+      z-index: 2;
+      transition: color 0.3s ease;
+    }
+
+    ul li:hover {
+      transform: translateZ(45px);
+    }
+
+    ul li:hover a {
+      color: #fff;
+    }
+
+    ul li.active {
+      transform: translateZ(65px) scaleY(1.08);
+      z-index: 10;
+    }
+
+    /* Warna aktif */
+    ul li:nth-child(1).active { background: #25D366; box-shadow: 0 25px 45px rgba(37,211,102,0.5); }
+    ul li:nth-child(2).active { background: #0088cc; box-shadow: 0 25px 45px rgba(0,136,204,0.5); }
+    ul li:nth-child(3).active { background: #010101; box-shadow: 0 25px 45px rgba(0,0,0,0.6); }
+    ul li:nth-child(4).active { background: #E1306C; box-shadow: 0 25px 45px rgba(225,48,108,0.6); }
+
+    ul li.active a {
+      color: #fff;
+    }
+
+    /* 🔽 Card View */
+    .view-card {
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%) translateY(12px);
+      background: #222;
+      padding: 8px 18px;
+      border-radius: 12px;
+      font-size: 14px;
+      color: white;
+      opacity: 0;
+      transition: all 0.6s ease;
+      pointer-events: none;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    ul li.active .view-card {
+      opacity: 1;
+      transform: translateX(-50%) translateY(20px);
+      pointer-events: auto;
+      animation: slideDown 0.6s ease forwards;
+    }
+
+    @keyframes slideDown {
+      0% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-10px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(20px);
+      }
+    }
+
+    /* Warna sesuai icon */
+    ul li:nth-child(1).active .view-card { background: #25D366; }
+    ul li:nth-child(2).active .view-card { background: #0088cc; }
+    ul li:nth-child(3).active .view-card { background: #010101; }
+    ul li:nth-child(4).active .view-card { background: #E1306C; }
+
+    .view-card i {
+      font-size: 13px;
+    }
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+*{box-sizing:border-box;margin:0;padding:0}
+.stage{width:100%;display:flex;align-items:center;justify-content:center;perspective:1200px;perspective-origin:50% 40%}
+.card-wrap{width:260px;height:340px;transform-style:preserve-3d;will-change:transform;position:relative;user-select:none;touch-action:none}
+.card{width:100%;height:100%;border-radius:22px;border:4px solid rgba(255,105,180,0.25);background:linear-gradient(45deg,#141414,#1e1e1e);
+box-shadow:0 18px 40px rgba(0,0,0,0.6),inset 0 0 12px rgba(0,0,0,0.4);
+transform-style:preserve-3d;transition:transform 0.7s cubic-bezier(0.4,0.2,0.2,1),box-shadow 0.3s ease;position:relative;cursor:pointer}
+.face{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;padding:20px;
+backface-visibility:hidden;transform-style:preserve-3d}
+.face.front{z-index:2;transform:rotateY(0deg)}
+.face.back{z-index:1;transform:rotateY(180deg)}
+.card-wrap.flipped .card{transform:rotateY(180deg)}
+.front-inner{display:flex;flex-direction:column;align-items:center;gap:14px;pointer-events:none}
+.photo-box{width:160px;height:200px;border-radius:14px;overflow:hidden;position:relative;background:#222;box-shadow:0 10px 30px rgba(0,0,0,0.6)}
+.photo-box img{width:100%;height:100%;object-fit:cover;display:block}
+.subtitle{margin-top:8px;text-align:center;color:rgba(255,255,255,0.92);font-size:13px;letter-spacing:1px}
+.subtitle .name{display:block;font-weight:800;font-size:20px;margin-top:6px;
+background:linear-gradient(90deg,#f8c0e8,#d7b9ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.corner-elements span{position:absolute;width:12px;height:12px;border:2px solid rgba(130,110,255,0.12);border-radius:3px}
+.corner-elements span:nth-child(1){top:12px;left:12px;border-right:0;border-bottom:0}
+.corner-elements span:nth-child(2){top:12px;right:12px;border-left:0;border-bottom:0}
+.corner-elements span:nth-child(3){bottom:12px;left:12px;border-right:0;border-top:0}
+.corner-elements span:nth-child(4){bottom:12px;right:12px;border-left:0;border-top:0}
+.scan-line{position:absolute;inset:0;background:linear-gradient(to bottom,transparent,rgba(130,110,255,0.03),transparent);
+transform:translateY(-100%);animation:scanMove 3.2s linear infinite}
+@keyframes scanMove{0%{transform:translateY(-100%)}100%{transform:translateY(100%)}}
+.face.back{background:linear-gradient(180deg,#060506 0%,#0a0a0b 40%,#0d0d0f 100%);
+box-shadow:inset 0 0 0 1px rgba(255,255,255,0.02)}
+.back-inner{width:100%;max-width:220px;display:flex;flex-direction:column;gap:12px;align-items:flex-start;transform:translateZ(50px)}
+.skill{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:10px;
+min-width:140px;background:linear-gradient(90deg,rgba(255,255,255,0.012),rgba(255,255,255,0.01));
+box-shadow:0 8px 18px rgba(0,0,0,0.5);opacity:0;transform:translateX(-8px) scale(.98)}
+.skill .icon{width:40px;height:40px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:18px;color:#fff;flex:0 0 40px}
+.skill .text{font-size:13px;color:rgba(255,255,255,0.95);font-weight:700}
+.html .icon{background:#e34f26}
+.css .icon{background:#2965f1}
+.js .icon{background:#f7df1e;color:#111}
+.react .icon{background:#61dafb;color:#041223}
+.card-wrap {
+  perspective: 1200px;
+  width: 260px;
+  height: 320px;
+  position: relative;
+  cursor: pointer;
+  transform-style: preserve-3d;
+  transition: transform 1s cubic-bezier(.2,.9,.2,1);
+}
+
+.card {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 1s cubic-bezier(.2,.9,.2,1);
+}
+
+/* 🎯 Efek geser 3D hanya di sekitar kartu dan hanya saat depan */
+.card-wrap:not(.flipped):hover .card {
+  transform: rotateY(10deg) rotateX(8deg) scale(1.05);
+  box-shadow: 0 25px 60px rgba(255, 79, 195, 0.3);
+}
+
+/* Saat hover keluar, balik halus */
+.card-wrap .card {
+  transition: transform 0.6s ease, box-shadow 0.6s ease;
+}
+
+/* Saat di-flip (bagian tentang) */
+.card-wrap.flipped .card {
+  transform: rotateY(180deg);
+  box-shadow: none; /* hilangkan efek bayangan */
+  cursor: default;  /* pointer berubah normal */
+}
+
+/* === Sisi depan (foto cewek) === */
+.card .front {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 18px;
+  overflow: hidden;
+  backface-visibility: hidden;
+  transform: rotateY(0deg);
+  transform-style: preserve-3d;
+}
+
+/* === Sisi belakang (icon skill) === */
+.card .back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 18px;
+  overflow: hidden;
+  backface-visibility: hidden;
+  transform: rotateY(180deg);
+  transform-style: preserve-3d;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  background: rgba(20, 0, 30, 0.9);
+  box-shadow: inset 0 0 20px rgba(255, 0, 180, 0.2);
+}
+
+/* === Icon Skill === */
+.skill {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 14px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.05);
+  box-shadow: 0 5px 14px rgba(0,0,0,0.5);
+  opacity: 1; /* langsung tampil */
+  transform: none;
+  transition: 0.3s ease;
+}
+
+.skill img {
+  width: 28px;
+  height: 28px;
+}
+
+.skill span {
+  font-weight: 500;
+  color: #fff;
+}
+#cardWrap, #card {
+  -webkit-user-select: none; /* tidak bisa seleksi */
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none; /* nonaktifkan menu “download image” di iOS */
+  pointer-events: none; /* blokir klik dan tap */
+}
+/* === SIDEBAR KANAN (FULL HEIGHT) === */
+.sidebar-container {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: stretch;
+  z-index: 999;
+}
+
+.sidebar {
+  width: 80px;
+  height: 125vh; /* tetap panjang seperti yang kamu mau */
+  background: rgba(10, 0, 20, 0.7);
+  backdrop-filter: blur(12px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-top-left-radius: 16px;
+  border-bottom-left-radius: 0;
+  box-shadow: -4px 0 25px rgba(0,0,0,0.5);
+  padding: 25px 0 80px 0; /* ⬅️ tambah padding bawah 80px */
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.sidebar-top {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 26px;
+}
+
+.profile {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--pink-1), var(--pink-2));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+
+.icons {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.icon {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255,255,255,0.7);
+  border-radius: 14px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.icon:hover,
+.icon.active {
+  background: linear-gradient(135deg, var(--pink-1), var(--pink-2));
+  color: #fff;
+  box-shadow: 0 0 20px rgba(255,79,195,0.4);
+}
+
+/* Bagian bawah sidebar */
+.sidebar-bottom {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 25px;
+}
+
+/* Tombol musik */
+.music-btn {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--pink-1), var(--pink-2));
+  box-shadow: 0 0 25px rgba(255,79,195,0.4);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.music-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 35px rgba(255,79,195,0.6);
+}
+
+/* Tombol panah */
+.expand-btn {
+  border: none;
+  outline: none;
+  cursor: pointer;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--pink-1), var(--pink-2));
+  color: #fff;
+  width: 55px;
+  height: 55px;
+  box-shadow: 0 0 20px rgba(255,79,195,0.3);
+  animation: pulse 1.5s infinite ease-in-out;
+  transition: all 0.3s ease;
+}
+
+.expand-btn:hover {
+  transform: scale(1.1);
+  animation: none;
+}
+
+/* Animasi kedip panah */
+@keyframes pulse {
+  0% { box-shadow: 0 0 10px rgba(255,79,195,0.3); opacity: 0.8; }
+  50% { box-shadow: 0 0 25px rgba(255,79,195,0.6); opacity: 1; }
+  100% { box-shadow: 0 0 10px rgba(255,79,195,0.3); opacity: 0.8; }
+}
+
+/* Panel expand */
+.expand-panel {
+  width: 0;
+  opacity: 0;
+  overflow: hidden;
+  background: rgba(20, 0, 40, 0.7);
+  backdrop-filter: blur(10px);
+  border-top-left-radius: 16px;
+  border-bottom-left-radius: 16px;
+  padding: 30px 0;
+  transition: all 0.4s ease;
+  box-shadow: inset 0 0 40px rgba(255,79,195,0.1);
+  color: #fff;
+  height: 125vh; /* ⬅️ tambahan: perpanjang ke bawah */
+}
+
+.expand-panel.active {
+  width: 270px;
+  opacity: 1;
+  padding: 30px 25px;
+}
+
+.expand-panel .brand {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 25px;
+  color: var(--pink-1);
+}
+
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+  margin-bottom: 25px;
+}
+
+.menu-grid a {
+  background: rgba(255,255,255,0.05);
+  border-radius: 12px;
+  padding: 18px 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.3s;
+  color: #fff;
+  text-decoration: none;
+}
+
+.menu-grid a i {
+  font-size: 20px;
+}
+
+.menu-grid a:hover {
+  background: linear-gradient(135deg, var(--pink-1), var(--pink-2));
+  color: #fff;
+  box-shadow: 0 0 18px rgba(255,79,195,0.3);
+}
+
+.menu-grid div {
+  background: rgba(255,255,255,0.05);
+  border-radius: 12px;
+  padding: 18px 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.menu-grid div i {
+  font-size: 20px;
+}
+
+.menu-grid div:hover {
+  background: linear-gradient(135deg, var(--pink-1), var(--pink-2));
+  color: #fff;
+  box-shadow: 0 0 18px rgba(255,79,195,0.3);
+}
+
+.section {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: var(--pink-2);
+}
+header {
+  position: fixed; /* bikin header tetap di atas */
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(10, 0, 20, 0.8); /* sedikit transparan biar nyatu dengan tema */
+  backdrop-filter: blur(10px);
+  z-index: 9999; /* pastikan di atas elemen lain */
+  padding: 15px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 2px 15px rgba(0,0,0,0.3);
+  border-bottom: 1px solid rgba(255, 100, 200, 0.2);
 }
 </style>
 </head>
@@ -357,50 +849,99 @@ footer .dev-link:hover {
   </a>
 </div>
       </div>
-    <section id="about" class="about" style="margin-top:28px">
-      <div class="about-grid">
-        <div class="avatar reveal-left">
-          <img src="https://a.top4top.io/p_3574atk9e1.jpg" alt="Atifaima Putri">
-        </div>
-        <div>
-          <h3 class="reveal-top">Tentang Saya</h3>
-          <div class="quote reveal-left">
-            <i class="fa-solid fa-quote-left"></i>
-            <div style="margin-left:8px">Hai, Nama Saya Atifaima Putri.</div>
+<section id="about" class="about" style="margin-top:28px">
+  <div class="about-grid">
+    <div class="avatar reveal-left">
+      <!-- CARD 3D ORIGINAL MULAI -->
+      <div class="stage" id="stage">
+        <!-- 🔥 Tambahan area interaktif -->
+        <div class="card-area" id="cardArea">
+          <div class="card-wrap" id="cardWrap" tabindex="0" aria-label="Interactive 3D card">
+            <div class="card" id="card">
+              <!-- FRONT -->
+              <div class="face front" id="frontFace">
+                <div class="front-inner">
+                  <div class="photo-box" id="photoBox">
+                    <img src="https://a.top4top.io/p_3574atk9e1.jpg" alt="Foto profil" draggable="false">
+                    <div class="photo-border" aria-hidden="true">
+                      <span class="line top"></span>
+                      <span class="line right"></span>
+                      <span class="line bottom"></span>
+                      <span class="line left"></span>
+                    </div>
+                  </div>
+
+                  <div class="subtitle"><span>Hi, I'm</span><span class="name">Atifaima Putri</span></div>
+
+                  <div class="corner-elements" aria-hidden="true">
+                    <span></span><span></span><span></span><span></span>
+                  </div>
+
+                  <div class="scan-line" aria-hidden="true"></div>
+                </div>
+              </div>
+
+              <!-- BACK -->
+              <div class="face back" id="backFace" aria-hidden="true">
+                <div class="pink-accent" aria-hidden="true"></div>
+                <div class="back-inner" id="backInner">
+                  <div class="skill html"><div class="icon"><i class="fa-brands fa-html5"></i></div><div class="text">HTML</div></div>
+                  <div class="skill css"><div class="icon"><i class="fa-brands fa-css3-alt"></i></div><div class="text">CSS</div></div>
+                  <div class="skill js"><div class="icon"><i class="fa-brands fa-js"></i></div><div class="text">JavaScript</div></div>
+                  <div class="skill react"><div class="icon"><i class="fa-brands fa-react"></i></div><div class="text">React</div></div>
+                </div>
+              </div>
+            </div>
           </div>
-          <p class="reveal">
-Dengan latar belakang yang kuat dalam pengembangan full-stack, saya mampu menangani berbagai aspek pengembangan aplikasi, mulai dari frontend yang menarik hingga backend yang robust dan scalable.
-
-Saya percaya bahwa teknologi harus digunakan untuk menciptakan solusi yang membuat hidup lebih mudah dan efisien. Setiap project yang saya kerjakan selalu didasari oleh prinsip clean code, user experience yang baik, dan performance yang optimal.</p>
-          <div class="stats" aria-hidden="false" style="display:flex; flex-direction:column; gap:12px;">
-
-  <div class="stat reveal-left" style="display:flex; align-items:center; gap:12px;">
-    <i class="fa-solid fa-box fa-2x" style="color:#ff4fc3;"></i>
-    <div style="flex:1;">
-      <div class="meta">PRODUK YANG TERSEDIA</div>
-      <div class="desc"></div>
+        </div>
+        <!-- 🔥 END: card-area -->
+      </div>
+      <!-- CARD 3D ORIGINAL SELESAI -->
     </div>
-    <div class="count" data-target="7">0</div>
-  </div>
 
-  <div class="stat reveal" style="display:flex; align-items:center; gap:12px;">
-    <i class="fa-solid fa-check-circle fa-2x" style="color:#4caf50;"></i>
-    <div style="flex:1;">
-      <div class="meta">Transaksi Sukses</div>
-      <div class="desc"></div>
-    </div>
-    <div class="count" data-target="100">0</div>
-  </div>
+    <div>
+      <h3 class="reveal-top">Tentang Saya</h3>
+      <div class="quote reveal-left">
+        <i class="fa-solid fa-quote-left"></i>
+        <div style="margin-left:8px">Hai, Nama Saya Atifaima Putri.</div>
+      </div>
+      <p class="reveal">
+        Dengan latar belakang yang kuat dalam pengembangan full-stack, saya mampu menangani berbagai aspek pengembangan aplikasi, mulai dari frontend yang menarik hingga backend yang robust dan scalable.
+        <br><br>
+        Saya percaya bahwa teknologi harus digunakan untuk menciptakan solusi yang membuat hidup lebih mudah dan efisien. Setiap project yang saya kerjakan selalu didasari oleh prinsip clean code, user experience yang baik, dan performance yang optimal.
+      </p>
 
-  <div class="stat reveal-right" style="display:flex; align-items:center; gap:12px;">
-    <i class="fa-solid fa-chart-line fa-2x" style="color:#2196f3;"></i>
-    <div style="flex:1;">
-      <div class="meta">Aktivitas Terakhir</div>
-      <div class="desc"></div>
+      <div class="stats" aria-hidden="false" style="display:flex; flex-direction:column; gap:12px;">
+        <div class="stat reveal-left" style="display:flex; align-items:center; gap:12px;">
+          <i class="fa-solid fa-box fa-2x" style="color:#ff4fc3;"></i>
+          <div style="flex:1;">
+            <div class="meta">PRODUK YANG TERSEDIA</div>
+            <div class="desc"></div>
+          </div>
+          <div class="count" data-target="7">0</div>
+        </div>
+
+        <div class="stat reveal" style="display:flex; align-items:center; gap:12px;">
+          <i class="fa-solid fa-check-circle fa-2x" style="color:#4caf50;"></i>
+          <div style="flex:1;">
+            <div class="meta">Transaksi Sukses</div>
+            <div class="desc"></div>
+          </div>
+          <div class="count" data-target="100">0</div>
+        </div>
+
+        <div class="stat reveal-right" style="display:flex; align-items:center; gap:12px;">
+          <i class="fa-solid fa-chart-line fa-2x" style="color:#2196f3;"></i>
+          <div style="flex:1;">
+            <div class="meta">Aktivitas Terakhir</div>
+            <div class="desc"></div>
+          </div>
+          <div class="count" data-target="100">0</div>
+        </div>
+      </div>
     </div>
-    <div class="count" data-target="100">0</div>
   </div>
-</div>
+</section>
 <section class="tech-section" id="tech" style="margin-top:40px">
   <div class="tech-header">
     <h3 class="tech-title reveal-top">Keahlian Dan Produk</h3>
@@ -671,61 +1212,32 @@ Saya percaya bahwa teknologi harus digunakan untuk menciptakan solusi yang membu
   <div class="about-grid">
     <div>
       <h3 class="reveal-top">Hubungi Saya</h3>
-    <p class="muted reveal">Saya terbuka untuk diskusi mengenai project baru, kolaborasi, atau sekadar berbagi ide tentang teknologi. Jangan ragu untuk menghubungi saya melalui channel di bawah ini.</p>
-      <div class="stats" aria-hidden="false" style="margin-top:20px; display:flex; flex-direction:column; gap:16px;">
+      <p class="muted reveal">
+        Saya terbuka untuk diskusi mengenai project baru, kolaborasi, atau sekadar berbagi ide tentang teknologi. 
+        Jangan ragu untuk menghubungi saya melalui channel di bawah ini.
+      </p>
 
-        <div class="stat reveal-left" style="display:flex; align-items:center; justify-content:space-between; gap:12px;">
-          <div style="display:flex; align-items:center; gap:12px;">
-            <i class="fab fa-whatsapp fa-2x" style="color:#25D366;"></i>
-            <div>
-              <div class="meta">WHATSAPP</div>
-              <div class="desc">6283163645016</div>
-            </div>
-          </div>
-          <a href="https://wa.me/6283163645016" target="_blank" style="color:#ffffff; font-weight:600; text-decoration:none;">
-            View <i class="fas fa-external-link-alt" style="font-size:13px; margin-left:4px;"></i>
-          </a>
-        </div>
-
-        <div class="stat reveal" style="display:flex; align-items:center; justify-content:space-between; gap:12px;">
-          <div style="display:flex; align-items:center; gap:12px;">
-            <i class="fab fa-instagram fa-2x" style="color:#E1306C;"></i>
-            <div>
-              <div class="meta">INSTAGRAM</div>
-              <div class="desc">@imachiljii</div>
-            </div>
-          </div>
-          <a href="https://instagram.com/imachiljii" target="_blank" style="color:#ffffff; font-weight:600; text-decoration:none;">
-            View <i class="fas fa-external-link-alt" style="font-size:13px; margin-left:4px;"></i>
-          </a>
-        </div>
-
-        <div class="stat reveal-right" style="display:flex; align-items:center; justify-content:space-between; gap:12px;">
-          <div style="display:flex; align-items:center; gap:12px;">
-            <i class="fa fa-envelope fa-2x" style="color:#FF6F61;"></i>
-            <div>
-              <div class="meta">EMAIL</div>
-              <div class="desc">contact@atifaimaputri.dev</div>
-            </div>
-          </div>
-          <a href="mailto:atifaimaputri.dev@gmail.com" target="_blank" style="color:#ffffff; font-weight:600; text-decoration:none;">
-            View <i class="fas fa-external-link-alt" style="font-size:13px; margin-left:4px;"></i>
-          </a>
-        </div>
-        <div class="stat reveal-left" style="display:flex; align-items:center; justify-content:space-between; gap:12px;">
-          <div style="display:flex; align-items:center; gap:12px;">
-            <i class="fab fa-telegram fa-2x" style="color:#0088cc;"></i>
-            <div>
-              <div class="meta">TELEGRAM</div>
-              <div class="desc">@aimasja</div>
-            </div>
-          </div>
-          <a href="https://t.me/aimasja" target="_blank" style="color:#ffffff; font-weight:600; text-decoration:none;">
-            View <i class="fas fa-external-link-alt" style="font-size:13px; margin-left:4px;"></i>
-          </a>
-        </div>
-
-      </div>
+      <!-- 3D Interactive Contact List -->
+        <ul>
+    <li data-link="https://wa.me/">
+      <a><i class="fab fa-whatsapp"></i></a>
+      <div class="view-card"><i class="fas fa-external-link-alt"></i> View</div>
+    </li>
+    <li data-link="https://t.me/">
+      <a><i class="fab fa-telegram"></i></a>
+      <div class="view-card"><i class="fas fa-external-link-alt"></i> View</div>
+    </li>
+    <li data-link="https://www.tiktok.com/">
+      <a><i class="fab fa-tiktok"></i></a>
+      <div class="view-card"><i class="fas fa-external-link-alt"></i> View</div>
+    </li>
+    <li data-link="https://instagram.com/">
+      <a><i class="fab fa-instagram"></i></a>
+      <div class="view-card"><i class="fas fa-external-link-alt"></i> View</div>
+    </li>
+  </ul>
+        </li>
+      </ul>
     </div>
   </div>
 </section>
@@ -840,11 +1352,122 @@ Saya percaya bahwa teknologi harus digunakan untuk menciptakan solusi yang membu
     </div>
   </div>
 </section>
-<audio id="bg-music" src="https://k.top4top.io/m_35750usyu1.mp3"></audio>
-<button id="music-btn" title="Play Music">
-  <i class="fa-solid fa-play"></i>
 </button>
 <script>
+  window.addEventListener("load", () => {
+    document.body.classList.add("loaded");
+  });
+</script>
+<script>
+const expandBtn = document.querySelector('.expand-btn');
+const expandPanel = document.querySelector('.expand-panel');
+const musicBtn = document.querySelector('.music-btn');
+
+let isPlaying = false;
+const audio = new Audio('https://k.top4top.io/m_35750usyu1.mp3'); // link musik kamu
+
+// toggle panel
+expandBtn.addEventListener('click', () => {
+  expandPanel.classList.toggle('active');
+  expandBtn.querySelector('i').classList.toggle('fa-arrow-left');
+  expandBtn.querySelector('i').classList.toggle('fa-arrow-right');
+});
+
+// kontrol musik
+musicBtn.addEventListener('click', () => {
+  if (!isPlaying) {
+    audio.play();
+    musicBtn.innerHTML = '<i class="fa-solid fa-pause"></i>';
+    musicBtn.style.animation = 'spin 2s linear infinite';
+  } else {
+    audio.pause();
+    musicBtn.innerHTML = '<i class="fa-solid fa-music"></i>';
+    musicBtn.style.animation = 'none';
+  }
+  isPlaying = !isPlaying;
+});
+
+// animasi berputar
+const style = document.createElement('style');
+style.textContent = `
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}`;
+document.head.appendChild(style);
+</script>
+<script>
+(function(){
+  const cardWrap = document.getElementById('cardWrap');
+  const card = document.getElementById('card');
+  let rotX = 0, rotY = 0, velX = 0, velY = 0, lastPointer = null, isPointerDown = false;
+  const sensitivity = 0.25, friction = 0.94, speedFactor = 0.08, inertiaFactor = 0.95;
+  function getPointer(e) {
+    if (e.touches && e.touches[0])
+      return { x: e.touches[0].clientX, y: e.touches[0].clientY };
+    return { x: e.clientX, y: e.clientY };
+  }
+  function onPointerDown(e) {
+    isPointerDown = true;
+    lastPointer = getPointer(e);
+  }
+  function onPointerMove(e) {
+    const p = getPointer(e);
+    if (!lastPointer) lastPointer = p;
+    const dx = p.x - lastPointer.x;
+    const dy = p.y - lastPointer.y;
+    if (isPointerDown) {
+      velY += dx * speedFactor;
+      velX -= dy * speedFactor;
+    }
+    lastPointer = p;
+  }
+  function onPointerUp() {
+    isPointerDown = false;
+  }
+  function loop() {
+    rotX += velX * sensitivity;
+    rotY += velY * sensitivity;
+    if (rotX > 360 || rotX < -360) rotX %= 360;
+    if (rotY > 360 || rotY < -360) rotY %= 360;
+    velX *= friction;
+    velY *= friction;
+    if (!isPointerDown) {
+      velX *= inertiaFactor;
+      velY *= inertiaFactor;
+    }
+    const baseFlip = cardWrap.classList.contains('flipped') ? 180 : 0;
+    card.style.transform = `rotateY(${baseFlip + rotY}deg) rotateX(${rotX}deg) translateZ(0)`;
+    requestAnimationFrame(loop);
+  }
+  window.addEventListener('mousedown', onPointerDown);
+  window.addEventListener('mousemove', onPointerMove);
+  window.addEventListener('mouseup', onPointerUp);
+  window.addEventListener('touchstart', onPointerDown, { passive: true });
+  window.addEventListener('touchmove', onPointerMove, { passive: true });
+  window.addEventListener('touchend', onPointerUp, { passive: true });
+  cardWrap.addEventListener('dblclick', () => {
+    cardWrap.classList.toggle('flipped');
+  });
+  document.querySelectorAll('img').forEach(i => i.addEventListener('dragstart', e => e.preventDefault()));
+  requestAnimationFrame(loop);
+})();
+</script>
+<script>
+const buttons = document.querySelectorAll('ul li');
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        buttons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      });
+
+      const view = btn.querySelector('.view-card');
+      view.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const url = btn.getAttribute('data-link');
+        window.open(url, '_blank');
+      });
+    });
 const counters = document.querySelectorAll('.count');
 counters.forEach(counter => {
   const target = +counter.getAttribute('data-target'); // angka murni
@@ -1175,17 +1798,6 @@ async function saveToGitHub(message) {
 loadComments();
 </script>
   </main>
-
-<footer>
-  <p>
-    <i class="fa-regular fa-copyright"></i>
-    <strong>Aima</strong> — Website created by 
-    <i class="fa-solid fa-heart"></i> 
-    <a href="https://t.me/daffadevv" target="_blank" class="dev-link"><strong>Daffa Dev</strong></a>
-  </p>
-</footer>
-</div>
-
 <script>
 document.querySelectorAll('.tabs .tab').forEach(tab=>{
   tab.addEventListener('click', ()=>{
