@@ -9,6 +9,15 @@
     "reply": []
   },
   {
+    "name": "ghlxz",
+    "message": "LONTE MURAHAN",
+    "avatar": "https://raw.githubusercontent.com/daffaadev/aima/main/image/1762391504688-ghlxz.jpg",
+    "time": "2025-11-06T01:11:47.042Z",
+    "like": 1,
+    "pin": false,
+    "reply": []
+  },
+  {
     "name": "Wahid",
     "message": "Hai",
     "avatar": "",
@@ -50,15 +59,6 @@
     "avatar": "https://raw.githubusercontent.com/daffaadev/aima/main/image/1760572352520-Sza.jpg",
     "time": "2025-10-15T23:52:37.161Z",
     "like": 1,
-    "pin": false,
-    "reply": []
-  },
-  {
-    "name": "ghlxz",
-    "message": "LONTE MURAHAN",
-    "avatar": "https://raw.githubusercontent.com/daffaadev/aima/main/image/1762391504688-ghlxz.jpg",
-    "time": "2025-11-06T01:11:47.042Z",
-    "like": 0,
     "pin": false,
     "reply": []
   }
